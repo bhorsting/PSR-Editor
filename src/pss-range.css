@@ -31,6 +31,11 @@ input[type=range]::-webkit-slider-thumb {
   margin-top: 0px;
 }
 
+
+.vertical-slider * :hover {
+  filter: saturate(2102%) hue-rotate(-110deg);
+}
+
 input[type=range]::-moz-range-track {
   /*width: 100%;*/
   height: 30px;

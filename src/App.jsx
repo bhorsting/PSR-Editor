@@ -12,10 +12,12 @@ const MIDI_OUTPUT_ID_KEY = 'midiOutputId';
 const PRESET_KEY = 'presetId';
 const BANKS = [];
 let displayBackTimeout;
+let curNumTimeout;
+let curNumSelected = "";
 
 for (let i = 0; i < 3; i++) {
   BANKS[i] = [];
-  for (let j = 0; j < 10; j++) {
+  for (let j = 0; j < 100; j++) {
     BANKS[i][j] = {
       name: `Preset ${j}`,
       values: [],
@@ -76,7 +78,7 @@ class App extends React.Component {
     if (storedLayoutId != null) {
       this.updateLayout(parseInt(storedLayoutId));
     } else {
-      this.updateLayout(0);
+      this.updateLayout(1);
     }
     const storedPresetId = localStorage.getItem(PRESET_KEY);
     if (storedPresetId != null) {
@@ -103,6 +105,23 @@ class App extends React.Component {
     // if (dirty) this.forceUpdate();
   }
 
+  handleKeybed = (e) => {
+    if(isFinite(e)) {
+      if(!curNumSelected) {
+        curNumSelected = e.toString();
+      } else {
+        curNumSelected += e.toString();
+      }
+      clearTimeout(curNumTimeout);
+      curNumTimeout = setTimeout(()=>{
+        curNumSelected = '';
+      }, 2000)
+      curNumSelected = curNumSelected.substr(-2);
+      this.updatePreset(this.state.layoutId, parseInt(curNumSelected));
+      this.sendCurrentStateAsSysex();
+    }
+  }
+
   handleSavePreset = (e) => {
     const {layoutId, presetId} = this.state;
     const preset = LAYOUTS[layoutId].presets[presetId];
@@ -119,6 +138,7 @@ class App extends React.Component {
   handlePresetChange = (e) => {
     const presetId = parseInt(e.target.value);
     this.updatePreset(this.state.layoutId, presetId);
+    this.sendCurrentStateAsSysex();
   }
 
   handlePresetNameChange = (e) => {
@@ -148,6 +168,7 @@ class App extends React.Component {
   }
 
   updateLayout = (layoutId) => {
+    console.log('LayoutID', layoutId)
     this.loadPresets(layoutId);
     this.updatePreset(layoutId, 0);
     this.setState({
@@ -186,6 +207,7 @@ class App extends React.Component {
     } else if (outputs.length > 0) {
       this.updateMidiOutput(outputs[0].id);
     }
+    this.sendCurrentStateAsSysex();
   }
 
   toggleDemo = () => {
@@ -253,6 +275,13 @@ class App extends React.Component {
     }
   }
 
+  sendCurrentStateAsSysex() {
+    const {layoutId, presetId} = this.state;
+    const preset = LAYOUTS[layoutId].presets[presetId];
+    const sendSysex = LAYOUTS[layoutId].sendSysex;
+    sendSysex(this.getMidiOutput(), preset.values);
+  }
+
   getMidiOutput = () => {
     return this.midiAccess.outputs.get(this.state.midiOutputId);
   }
@@ -273,6 +302,7 @@ class App extends React.Component {
                 <LayoutComponent params={params} values={values} handleParamChange={this.handleParamChange}
                                  setMode={this.setMode}
                                  mode={this.state.mode}
+                                 handleKeybed={this.handleKeybed}
                                  toggleDemo={this.toggleDemo}/>
             }
             <div className="app-top">
@@ -282,14 +312,6 @@ class App extends React.Component {
                   <select id="midiOutput" value={midiOutputId} onChange={this.handleMidiOutputChange}>
                     {midiOutputs.map(output => (
                         <option key={output.id} value={output.id}>{output.name}</option>
-                    ))}
-                  </select>
-                </p>
-                <p>
-                  <label htmlFor="layout">Parameter Set:{' '}</label>
-                  <select id="layout" value={layoutId} onChange={this.handleLayoutChange}>
-                    {LAYOUTS.map((layout, idx) => (
-                        <option key={idx} value={idx}>{layout.name}</option>
                     ))}
                   </select>
                 </p>

@@ -11,6 +11,7 @@
   --text: #ccc;
   --lighter: #666;
   --darker: #222;
+  --algorithmfilter: sepia(76%) saturate(2102%) hue-rotate(-20deg) brightness(100%) contrast(91%);
 }
 
 
@@ -156,6 +157,10 @@ h3.label {
   background: #bbb;
 }
 
+.button-column :hover {
+  filter: contrast(150%);
+}
+
 .button-column {
   display: inline-block;
   vertical-align: middle;
@@ -270,7 +275,10 @@ header, .app-settings {
 .algorithms img { width: 100%; opacity: 0.8; cursor: pointer; }
 .algorithms img:hover {
   opacity: 1;
-  filter: sepia(76%) saturate(2102%) hue-rotate(-20deg) brightness(100%) contrast(91%);
+}
+.algorithms .selected {
+  filter: var(--algorithmfilter);
+  opacity: 1;
 }
 .inline {
   display: inline-block;
