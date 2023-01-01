@@ -30,9 +30,9 @@
     text-overflow: ellipsis;
     overflow: hidden;
     position: absolute;
-    top: 85px;
+    top: 84px;
     width: 150px;
-    right: 250px;
+    left: calc(1024px - 310px);
     font-size: 24px;
     text-align: right;
     background-color: #111111;
