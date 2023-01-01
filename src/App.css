@@ -1,6 +1,6 @@
 @font-face {
     font-family: LCD;
-    src: url('fonts/EHSMB.TTF');
+    src: url('/fonts/EHSMB.TTF');
 }
 
 .App {
