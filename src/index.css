@@ -19,7 +19,9 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   color: var(--text);
   background: var(--bg);
-  margin: 24px;
+  margin: 0px;
+  position: relative;
+  overflow: hidden;
 }
 
 img {
@@ -202,15 +204,15 @@ button.box-button {
   appearance: none;
   text-transform: uppercase;
   color: white;
-  font-size: 9.5px;
+  font-size: 16px;
   border: 0;
   padding: 2px 3px;
   border-radius: 2px;
   box-shadow: inset 0 -3px #0006, 0 1px 0 #0008;
   height: 28px;
   box-sizing: border-box;
-  display: inline-flex;
-  width: 64px;
+  width: 76px;
+  text-align: center;
   vertical-align: middle;
   margin: 0 4px;
 }
@@ -265,7 +267,7 @@ header, .app-settings {
 .algorithms {
   border-collapse: collapse;
   opacity: 0.8;
-  width: 540px;
+  width: calc(100vw - 550px);
   margin: 38px 20px 0 20px;
 }
 .algorithms td {

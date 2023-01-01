@@ -4,23 +4,16 @@
 }
 
 .App {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 1024px;
-    height: 600px;
-    overflow: hidden;
     padding-top: 0px;
     padding-left: 20px;
     padding-right: 20px;
-    border: 1px solid white;
 }
 
 .display {
     width: 80px;
     position: absolute;
-    top: 20px;
-    left: calc(1024px - 58px);
+    top: 18px;
+    right: 27px;
     transform: skew(-5deg);
 }
 
@@ -30,12 +23,11 @@
     text-overflow: ellipsis;
     overflow: hidden;
     position: absolute;
-    top: 84px;
-    width: 150px;
-    left: calc(1024px - 310px);
+    top: 70px;
+    width: calc(100vw - 250px);
+    left: 10px;
     font-size: 24px;
-    text-align: right;
-    background-color: #111111;
+    text-align: left;
     padding: 10px;
     font-family: LCD;
     color: #ff3300;
@@ -63,7 +55,7 @@
 .numericKeys {
     position: absolute;
     top: 76px;
-    left: calc(1024px - 125px);
+    right: 20px;
     width: 150px;
     height: 500px;
     overflow: hidden;
