@@ -373,8 +373,8 @@ class App extends React.Component {
             <Display value={this.state.curValue || this.state.presetId} color={isFinite(this.state.curValue) ? '#dac20c' : '#FF3300'} digitCount={3}/>
           </div>
 
-          <div className={`nameDisplay ${presets[presetId].isDirty ? "blink" : ""}`}>
-            {name}
+          <div className="nameDisplay">
+            <span className={presets[presetId].isDirty ? "blink" : ""}>{name}</span>
           </div>
 
         </div>
