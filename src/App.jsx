@@ -105,7 +105,22 @@ class App extends React.Component {
     // if (dirty) this.forceUpdate();
   }
 
+  handleKeybedAlpha = (e) => {
+    const {layoutId, presetId} = this.state;
+    const preset = LAYOUTS[layoutId].presets[presetId];
+    let name = preset.name;
+    console.log(name);
+    if (e === '<') {
+      name = name.slice(0,-1);
+    } else {
+      name += e;
+    }
+    preset.name = name;
+    this.forceUpdate();
+  }
+
   handleKeybed = (e) => {
+    let clearNumSelect = true;
     if(isFinite(e)) {
       if(!curNumSelected) {
         curNumSelected = e.toString();
@@ -117,8 +132,16 @@ class App extends React.Component {
         curNumSelected = '';
       }, 2000)
       curNumSelected = curNumSelected.substr(-2);
-      this.updatePreset(this.state.layoutId, parseInt(curNumSelected));
-      this.sendCurrentStateAsSysex();
+      clearNumSelect = false;
+    } else if (e === '-') {
+      curNumSelected = Math.max(this.state.presetId - 1, 1).toString();
+    } else if (e === '+') {
+      curNumSelected = Math.min(this.state.presetId + 1, 99).toString();
+    }
+    this.updatePreset(this.state.layoutId, parseInt(curNumSelected));
+    this.sendCurrentStateAsSysex();
+    if (clearNumSelect) {
+      curNumSelected = '';
     }
   }
 
@@ -293,7 +316,13 @@ class App extends React.Component {
     const presets = layout.presets;
     const values = presets[presetId].values;
     const LayoutComponent = layout.componentClass;
-
+    const name = presets[presetId].name;
+    const alphas = [];
+    for (let a = 65; a<65+26; a++) {
+      alphas.push(String.fromCharCode(a));
+    }
+    alphas.push(' ');
+    alphas.push('<');
     return (
         <div>
           <div className="App">
@@ -303,6 +332,7 @@ class App extends React.Component {
                                  setMode={this.setMode}
                                  mode={this.state.mode}
                                  handleKeybed={this.handleKeybed}
+                                 handleKeybedAlpha={this.handleKeybedAlpha}
                                  toggleDemo={this.toggleDemo}/>
             }
             <div className="app-top">
@@ -328,6 +358,13 @@ class App extends React.Component {
               <button className="box-button cyan" onClick={this.handleLoadPreset}>Load</button>{' '}*/}
                   <button className="box-button" onClick={this.handleSavePreset}>Save</button>
                 </p>
+
+                <div className="alphaKeys">
+                  {alphas.map(value=>
+                      <button key={value} onClick={()=>{this.handleKeybedAlpha(value)}}>{value}</button>
+                  )}
+                </div>
+
               </div> : <></>}
             </div>
           </div>
@@ -335,6 +372,11 @@ class App extends React.Component {
           <div className="display">
             <Display value={this.state.curValue || this.state.presetId} color={isFinite(this.state.curValue) ? '#dac20c' : '#FF3300'} digitCount={3}/>
           </div>
+
+          <div className={`nameDisplay ${presets[presetId].isDirty ? "blink" : ""}`}>
+            {name}
+          </div>
+
         </div>
     )
   }
