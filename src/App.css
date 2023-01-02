@@ -23,7 +23,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
     position: absolute;
-    top: 70px;
+    top: 55px;
     width: calc(100vw - 250px);
     left: 10px;
     font-size: 24px;
@@ -88,4 +88,96 @@
 
 .alphaKeys button {
     background-color: #444444;
+}
+
+@media only screen and (max-height: 480px) and (min-width: 1280px) {
+    .numericKeys {
+        width: 280px;
+        top: 100px;
+    }
+
+    .numericKeys button {
+        width: 78px;
+        height: 78px;
+        font-size: 24px;
+    }
+
+    .display {
+        width: 120px;
+    }
+
+    .alphaKeys {
+        width: 1600px;
+        top: 284px;
+        left: 18px;
+    }
+
+    .alphaKeys button {
+        width: 78px;
+        height: 78px;
+        font-size: 24px;
+    }
+
+    .algorithms {
+        width: 600px;
+    }
+
+    :root {
+        --range-width: 220px;
+    }
+
+    .vertical-slider-with-label {
+        width: 100px;
+    }
+
+    .vertical-slider-with-label .label {
+        font-size: 18px;
+        line-height: 20px;
+        padding-bottom: 10px;
+    }
+    .button-container .label {
+        font-size: 18px;
+        line-height: 20px;
+    }
+    .button-container button {
+        width: 90px;
+        height: 30px;
+    }
+    .mode-subgroup {
+        margin-right: 0px;
+    }
+    .button-column {
+        width: 140px;
+    }
+    .nameDisplay {
+        font-size: 48px;
+        text-align: right;
+        width: 300px;
+        right: 150px;
+        left: auto;
+        top: 12px;
+    }
+    h2.param-group-label {
+        font-size: 24px;
+        margin-top: 0px;
+    }
+    h3.label {
+        font-size: 24px;
+        padding-bottom: 24px;
+    }
+    .param-group br {
+        display: none;
+    }
+    .app-settings label {
+        font-size: 24px;
+    }
+    .app-settings select {
+        font-size: 24px;
+    }
+    button.box-button {
+        margin-top: 20px;
+        width: 78px;
+        height: 78px;
+        font-size: 24px;
+    }
 }

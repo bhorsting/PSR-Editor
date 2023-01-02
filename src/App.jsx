@@ -346,13 +346,6 @@ class App extends React.Component {
                   </select>
                 </p>
                 <p>
-                  <label htmlFor="preset">Preset Memory:{' '}</label>
-                  <select id="preset" value={presetId} onChange={this.handlePresetChange}>
-                    {presets.map((preset, idx) => (
-                        <option key={idx} value={idx}>{idx}: {preset.name} {preset.isDirty && '*'}</option>
-                    ))}
-                  </select>{' '}
-                  <input type="text" onChange={this.handlePresetNameChange} value={presets[presetId].name}/>{' '}
                   {/*
               TODO
               <button className="box-button cyan" onClick={this.handleLoadPreset}>Load</button>{' '}*/}

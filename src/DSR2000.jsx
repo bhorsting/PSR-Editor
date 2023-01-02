@@ -19,7 +19,7 @@ function opToParamIdxFn(op) {
 export function DSR2000(p) {
     return <>
         {NumericKeybed(p)}
-        <div className="param-group">
+        <div>
             {MODES.map(((mode, index) =>
                     <div className="mode-subgroup" key={mode}>
                         <div className="button-column">
@@ -31,7 +31,11 @@ export function DSR2000(p) {
                                 {index === 0 ?
                                     <button className='yellow' onDoubleClick={() => {
                                         p.setMode(index)
-                                    }}/>:
+                                    }} onTouchEnd={
+                                        () => {
+                                            p.setMode(index)
+                                        }
+                                    }/>:
                                     <button className='cyan' onClick={() => {
                                         p.setMode(index)
                                     }}/>
