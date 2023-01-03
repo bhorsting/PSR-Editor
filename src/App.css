@@ -92,13 +92,13 @@
 
 @media only screen and (max-height: 480px) and (min-width: 1280px) {
     .numericKeys {
-        width: 280px;
+        width: 238px;
         top: 100px;
     }
 
     .numericKeys button {
-        width: 78px;
-        height: 78px;
+        width: 64px;
+        height: 64px;
         font-size: 24px;
     }
 
@@ -107,14 +107,14 @@
     }
 
     .alphaKeys {
-        width: 1600px;
-        top: 284px;
+        width: 1400px;
+        top: 258px;
         left: 18px;
     }
 
     .alphaKeys button {
-        width: 78px;
-        height: 78px;
+        width: 64px;
+        height: 64px;
         font-size: 24px;
     }
 
@@ -123,11 +123,11 @@
     }
 
     :root {
-        --range-width: 220px;
+        --range-width: 195px;
     }
 
     .vertical-slider-with-label {
-        width: 100px;
+        width: 90px;
     }
 
     .vertical-slider-with-label .label {
